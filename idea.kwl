@@ -1,0 +1,175 @@
+let main() {
+    let n : i64 = fib(5)
+}
+
+let fib(n) : (i64) -> i64 {
+    ret if n <= 1 {
+        n
+    } else {
+        fib(n-1) + fib(n-2)
+    }
+}
+
+let print_int(n) : (i64) -> ; {
+    // no implementation
+}
+
+{ definition_token}
+{ identifier, "main"}
+{ parentheses_open}
+{ parentheses_closed}
+{ accollade_open}
+//{ newline}
+    { definition_token}
+    { identifier,  "n"}
+    { colon}
+    { identifier,  "i64"}
+    { eq}
+    { identifier,  "fib"}
+    { parentheses_open}
+    { integer_literal, 5}
+    { parentheses_closed}
+    //{ newline}
+{ accollade_closed}
+
+
+{ definition_token}
+{ identifier,  "fib"}
+{ parentheses_open}
+{ identifier,  "n"}
+{ parentheses_closed}
+{ colon}
+{ parentheses_open}
+{ identifier, "i64"}
+{ parentheses_closed}
+{ arrow}
+{ identifier, "i64"}
+{ accollade_open}
+//{ newline}
+    { return_token}
+    { if_token}
+    { identifier, "n"}
+    { leq}
+    { integer_literal, 1}
+    { accollade_open}
+    //{ newline}
+        { identifier,  "n"}
+        //{ newline}
+    { accollade_closed}
+    { else_token}
+    { accollade_open}
+    //{ newline}
+        { identifier,  "fib"}
+        { parentheses_open, ""}
+        { identifier,  "n"}
+        { minus}
+        { integer_literal, "1"}
+        { parentheses_closed}
+        { plus}
+        { identifier,  "fib"}
+        { parentheses_open}
+        { identifier,  "n"}
+        { minus}
+        { integer_literal, 2}
+        { parentheses_closed}
+        //{ newline}
+    { accollade_closed}
+    //{ newline}
+{ accollade_closed}
+
+{ definition_token}
+{ identifier,  "print_int"}
+{ parentheses_open}
+{ identifier,  "n"}
+{ parentheses_closed}
+{ colon}
+{ parentheses_open}
+{ identifier, "i64"}
+{ parentheses_closed}
+{ arrow}
+{ semicolon}
+{ accollade_open}
+{ accollade_closed}
+
+[
+    statement(
+        definition(
+            function_definition(
+                { identifier,  "main"}
+                []
+                function_body(
+                    [
+                        statement(
+                            definition(
+                                variable_definition(
+                                    typed_identifier(
+                                        { identifier,  "n"}, 
+                                        { identifier, "i64"}
+                                    )
+                                    expression(
+                                        function_execution(
+                                            { identifier,  "fib"}
+                                            [
+                                                { integer_literal, 5}
+                                            ]
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                    ]
+                )
+            )
+        )
+    ),
+    statement(
+        definition(
+            function_definition(
+                { identifier,  "fib"}
+                [
+                    (typed_identifier,  { identifier,  "n"}, { identifier, "i64"}),
+                ]
+                { identifier, "i64"}
+                function_body(
+                    [
+                        return_statement(
+                            if_else_statement(
+                                expression(
+                                    // n <= 1
+                                )
+                                function_body {
+                                    statement(
+                                        expression(
+                                            { identifier,  "n"}
+                                        )
+                                    )
+                                }
+                                function_body {
+                                    statement(
+                                        expression(
+                                            // fib(n-1)+fib(n-2)
+                                        )
+                                    )
+                                }
+                            )
+                        )
+                    ]
+                )
+            )
+        )
+    ),
+    statement(
+        definition(
+            function_definition(
+                { identifier,  "print_n"}
+                [
+                    (typed_identifier,  { identifier,  "n"}, { identifier, "i64"}),
+                ]
+                { semicolon}
+                function_body(
+                    []
+                )
+            )
+        )
+    ),
+]

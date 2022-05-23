@@ -1,0 +1,131 @@
+base_type = 
+    | 'u32' 
+    | 'i32' 
+    | 'u8' 
+    | 'i8'
+    | 'f32'
+    | 'bool'
+    
+array =
+    | type'[]'
+
+type =
+    | type '->' basetype
+    | type '->' type_identifier
+    | basetype
+    | type_identifier
+    | arr
+
+term = 
+    | identifier
+    | literal
+
+expression =
+    | expression binary_operator term
+    | unary_operator term
+    | term
+
+statement =
+    | assignment
+    | execution
+    | return_statement
+
+return_statement = 'ret' expression
+
+assignment =
+    | 'let' identifier ':' type '=' expression
+    | 'let' identifier '=' expression
+    | identifier '=' expression
+    |
+
+typed_value_declaration = 'let' identifier ':' type
+
+value_declaration = 
+    | typed_value_declaration
+    | let identifier
+
+binary_operator = 
+    | '*'
+    | '/'
+    | '+'
+    | '-'
+    | '%'
+    |
+
+unary_operator =
+    | '!'
+    | '-'
+    |
+
+keyword =
+    | let
+    | fun
+    | ret
+    | for
+    | while
+
+literal =
+    | integer
+    | string
+    | floating_point
+    |
+
+function = function_declaration function_body
+
+function_declaration = 
+    | 'fun' identifier '(' typed_value_declaration* ')'
+
+function_body = '{' statement* '}'
+
+integer = '[0-9]+'
+
+string = '"[^"]*"'
+
+floating_point = = '[0-9]+(\.[0-9]+)?'
+
+# let x = -5 - 4.3
+# =>
+# statement::assignment(
+#     identifier(x), 
+#     expression(
+#         expression(
+#             unary_operator('-),
+#             term::static_term(integer('5')
+#         ),
+#         binary_operator('-'),
+#         term::static_term(floating_point('4'))
+#     )
+# )
+
+# let x: f32 = -5 - 4.3
+# =>
+# statement::assignment(
+#     identifier(x),
+#     type::base_type('f32')
+#     expression(
+#         expression(
+#             unary_operator('-),
+#             term::static_term(integer('5')
+#         ),
+#         binary_operator('-'),
+#         term::static_term(floating_point('4'))
+#     )
+# )
+
+# fun add_2(x: i32) { ret x + 2 }
+# function(
+#   function_declaration(
+#         identifier('add_2'),
+#         typed_value_declaration(
+#             identifier('x'),
+#             type::base_type('i32')
+#         )
+#     ),
+#     function_body(
+#         statement::return_statement::expression(
+#             term::identifier('x'),
+#             binary_operator('+')
+#             term::static_term('2')
+#         )
+#     )
+# )
